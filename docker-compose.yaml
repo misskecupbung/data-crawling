@@ -1,16 +1,16 @@
 version: '3'
 
 services:
-  backend:
-    container_name: backend
-    image: 192.168.10.151:9090/backend:latest
+  app:
+    container_name: app
+    image: 10.33.109.104/data-crawling/app:latest
     network_mode: bridge
     restart: always
     ports:
       - "6800:6800"
   api:
     container_name: api
-    image: 192.168.10.151:9090/api:latest
+    image: 10.33.109.104/data-crawling/api:latest
     network_mode: bridge
     restart: always
     ports:

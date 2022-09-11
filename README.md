@@ -1,4 +1,1 @@
-# Data Crawling Project - Backend
-
-- APP Port: 8088
-- Database Port: 3306
+# Data Crawling Project
