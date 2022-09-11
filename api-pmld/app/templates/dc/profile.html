@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% extends "layouts/base.html" %}
+
+{% block title %} Help {% endblock %} 
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} sidebar-mini layout-navbar-fixed{% endblock body_class %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+       <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/static/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/static/assets/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/static/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/static/assets/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="/static/assets/plugins/summernote/summernote-bs4.min.css">
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- /.content-header -->
+    <section class="content">
+      <header>
+        <h1 class="m-0 text-blue text-bold">My Profile</h1>
+      </header>
+        <br>
+
+          <!-- Contact Section -->
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+              <!-- Profile Image -->
+              <div class="box box-primary">
+                <div class="box-body box-profile">
+                  <div class="text-center">
+                  <img class="profile-user-img img-responsive img-circle" src="static/assets/img/user1-128x128.jpg" alt="User profile picture">
+                  </div>
+                  <h3 class="profile-username text-center">{{ profiles['name'] }}</h3>
+    
+                  <p class="text-muted text-center">Software Engineer</p>
+    
+                  <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                      <b>&nbsp;&nbsp; Id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a class="pull-right">{{ profiles['id'] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>&nbsp;&nbsp; Email &nbsp;&nbsp;</b> <a class="pull-right">{{ profiles['email'] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>&nbsp;&nbsp; Credit &nbsp;</b> <a class="pull-right">{{ profiles['credit'] }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+    
+              <!-- About Me Box -->
+              
+              <!-- /.box -->
+            </div>
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">About Me</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+        
+                      <p class="text-muted">
+                        B.S. in Computer Science from the University of Tennessee at Knoxville
+                      </p>
+        
+                      <hr>
+        
+                      <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+        
+                      <p class="text-muted">Malibu, California</p>
+        
+                      <hr>
+        
+                      <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+        
+                      <p>
+                        <span class="label label-danger">UI Design</span>
+                        <span class="label label-success">Coding</span>
+                        <span class="label label-info">Javascript</span>
+                        <span class="label label-warning">PHP</span>
+                        <span class="label label-primary">Node.js</span>
+                      </p>
+        
+                      <hr>
+        
+                      <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+        
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                    </div>
+                    <!-- /.box-body -->
+                  </div>
+            </div>
+            <!-- /.col -->
+            <!-- /.col -->
+          </div>
+      </div>
+    </section>
+
+  </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+  <!-- jQuery -->
+  <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="/static/assets/plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="/static/assets/plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="/static/assets/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="/static/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="/static/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="/static/assets/plugins/moment/moment.min.js"></script>
+  <script src="/static/assets/plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="/static/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="/static/assets/plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="/static/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/static/assets/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="/static/assets/js/pages/dashboard.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/static/assets/js/demo.js"></script>
+
+{% endblock javascripts %}

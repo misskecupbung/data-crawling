@@ -1,0 +1,4 @@
+cryptography
+setuptools-rust
+scrapy
+mysql-connector

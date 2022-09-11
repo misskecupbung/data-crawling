@@ -1,0 +1,54 @@
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+      <img src="/static/assets/img/Logo.png" alt="Logo" class="brand-image img-circle elevation-4" style="opacity: 1">
+      <span class="brand-text font-Pacifico">Dacolle</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/static/assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="{{ url_for('dc.profile') }}" class="d-block">
+            {{ g.user['name'] }} 
+          </a>
+        </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-danger me-2"><a href="{{ url_for('auth.logout')}}">Log Out</a></button>
+        </div>
+      </div>
+
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->        
+          <li class="nav-item has-treeview {% if 'index' in segment %} menu-open {% endif %}">
+            <a href="{{ url_for('dc.transaction') }}" class="nav-link {% if 'crawling.html' in segment %} active {% endif %}">
+              <i class="nav-icon fas fa-shopping-basket"></i>
+              <p>
+                Crawling
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {% if 'index' in segment %} menu-open {% endif %}">
+            <a href="{{ url_for('dc.crawled') }}" class="nav-link {% if 'result.html' in segment %} active {% endif %}">
+              <i class="nav-icon far fa-file-alt"></i>
+              <p>
+                Results
+              </p>
+            </a>
+          </li>          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  
