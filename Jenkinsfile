@@ -11,8 +11,9 @@ pipeline {
     }
     stage("Build docker image") {
       steps {
-        sh 'docker build -t app .'
-        sh 'docker buid -t api .'
+        sh 'cd scrapy && docker build -t scrapy .'
+        sh 'cd ../api/ && docker buid -t api .'
+        sh 'cd ../'
       }
     }
     stage("Remove orpans containers") {
@@ -23,8 +24,8 @@ pipeline {
     stage("Push new data-crawling image") {
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
-        sh 'docker tag app 10.33.109.104/data-crawling/app'
-        sh 'docker push 10.33.109.104/data-crawling/app'
+        sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
+        sh 'docker push 10.33.109.104/data-crawling/scrapy'
         sh 'docker tag api 10.33.109.104/data-crawling/api'
         sh 'docker push 10.33.109.104/data-crawling/api'
       }

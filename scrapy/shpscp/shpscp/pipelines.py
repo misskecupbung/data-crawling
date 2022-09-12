@@ -12,11 +12,11 @@ class ShpscpPipeline:
 
     def __init__(self):
         self.con = mysql.connector.connect(
-            host = HOST,
-            port = '3306',
-            user = 'crawl',
-            passwd = 'pmld',
-            database = 'dbdatacollector'
+            host = '10.33.109.105',
+            port = '31926',
+            user = 'crawler',
+            passwd = '1sZQQN%VpEGCYr06u##LMh9n',
+            database = 'dbcrawling'
         )
         self.cur = self.con.cursor()
         # self.create_table()
