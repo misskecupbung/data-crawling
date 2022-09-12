@@ -12,7 +12,7 @@ class ShpscpPipeline:
 
     def __init__(self):
         self.con = mysql.connector.connect(
-            host = '192.168.10.151',
+            host = HOST,
             port = '3306',
             user = 'crawl',
             passwd = 'pmld',

@@ -23,15 +23,15 @@ pipeline {
     stage("Push new data-crawling image") {
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
-        sh 'docker tag data-crawling 10.33.109.104/data-crawling/app'
+        sh 'docker tag app 10.33.109.104/data-crawling/app'
         sh 'docker push 10.33.109.104/data-crawling/app'
-        sh 'docker tag data-crawling 10.33.109.104/data-crawling/api'
+        sh 'docker tag api 10.33.109.104/data-crawling/api'
         sh 'docker push 10.33.109.104/data-crawling/api'
       }
     }
     stage("Run new containers in data crawling project") {
       steps {
-        sh 'docker compose up -d data-crawling'
+        sh 'docker compose -p data-crawling up -d'
       }
     }
 
