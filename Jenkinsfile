@@ -11,9 +11,14 @@ pipeline {
     }
     stage("Build docker image") {
       steps {
-        sh 'cd scrapy && docker build -t scrapy . && ls && pwd'
-        sh 'cd ../api && docker buid -t api .'
-        sh 'cd ../'
+        sh 'pwd'
+        dir('scrapy') {
+          sh 'docker build -t scrapy .'
+        }
+        sh 'pwd'
+        dir('api') {
+          sh 'docker buid -t api .'
+        }
       }
     }
     stage("Remove orpans containers") {
