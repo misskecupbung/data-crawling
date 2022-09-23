@@ -11,7 +11,7 @@ pipeline {
     }
     stage("Build docker image") {
       steps {
-        sh 'cd scrapy && docker build -t scrapy . && ls'
+        sh 'cd scrapy && docker build -t scrapy . && ls && pwd'
         sh 'cd ../api && docker buid -t api .'
         sh 'cd ../'
       }
