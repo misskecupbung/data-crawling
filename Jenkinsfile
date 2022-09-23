@@ -17,7 +17,7 @@ pipeline {
         }
         sh 'pwd'
         dir('api') {
-          sh 'docker buid -t api .'
+          sh 'docker build -t api .'
         }
       }
     }
