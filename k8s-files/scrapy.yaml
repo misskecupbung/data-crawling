@@ -2,20 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: scrapy
+  labels:
+    app: scrapy
 spec:
+  selector:
+    matchLabels:
+      app: scrapy
   replicas: 3
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        name: scrapy
+        app: scrapy
     spec:
       containers:
       - name: scrapy
         image: 10.33.109.104/data-crawling/scrapy:latest
         resources:
           requests:
-            memory: "32Mi"
-            cpu: "64m"
+            memory: "64Mi"
+            cpu: "128m"
           limits:
             memory: "128Mi"
             cpu: "500m"

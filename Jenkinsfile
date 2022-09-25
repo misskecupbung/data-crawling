@@ -44,10 +44,10 @@ pipeline {
   post {
     success {
       dir('k8s-files') {
-        sh 'kubectl apply -f api_tmp.yaml -f scrapy_tmp.yaml'
-        sh 'kubectl delete -f api.yaml -f scrapy.yaml'
-        sh 'kubectl apply -f api.yaml -f scrapy.yaml'
-        sh 'kubectl delete -f api_tmp.yaml -f scrapy_tmp.yaml'
+        sh 'kubectl apply -f api_tmp.yaml -f scrapy_tmp.yaml -n data-crawling'
+        sh 'kubectl delete -f api.yaml -f scrapy.yaml -n data-crawling'
+        sh 'kubectl apply -f api.yaml -f scrapy.yaml -n data-crawling'
+        sh 'kubectl delete -f api_tmp.yaml -f scrapy_tmp.yaml -n data-crawling'
       }
     }
   }

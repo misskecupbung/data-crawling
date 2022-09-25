@@ -2,12 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-tmp
+  labels:
+    app: api
 spec:
+  selector:
+    matchLabels:
+      app: api
   replicas: 2
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        name: api
+        app: api
     spec:
       containers:
       - name: api
