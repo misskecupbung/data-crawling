@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrapy
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: scrapy
+    spec:
+      containers:
+      - name: scrapy
+        image: 10.33.109.104/data-crawling/scrapy:latest
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "64m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6800

@@ -11,11 +11,9 @@ pipeline {
     }
     stage("Build docker image") {
       steps {
-        sh 'pwd'
         dir('scrapy') {
           sh 'docker build -t scrapy .'
         }
-        sh 'pwd'
         dir('api') {
           sh 'docker build -t api .'
         }
@@ -38,13 +36,19 @@ pipeline {
     stage("Run new containers in data crawling project") {
       steps {
         sh 'docker compose -p data-crawling up -d'
+        sh 'docker ps'
       }
     }
 
   }
   post {
-    always {
-      sh 'docker ps'
+    success {
+      dir('k8s-files') {
+        sh 'kubectl apply -f api_tmp.yaml -f scrapy_tmp.yaml'
+        sh 'kubectl delete -f api.yaml -f scrapy.yaml'
+        sh 'kubectl apply -f api.yaml -f scrapy.yaml'
+        sh 'kubectl delete -f api_tmp.yaml -f scrapy_tmp.yaml'
+      }
     }
   }
 }

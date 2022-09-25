@@ -15,28 +15,13 @@ services:
     restart: always
     ports:
       - "5000:5000"
-  database:
-    container_name: database
-    image: mysql:5.7
-    network_mode: bridge
-    restart: always    
-    environment:
-      MYSQL_DATABASE: 'dbdatacollector'
-      MYSQL_USER: 'crawl'
-      MYSQL_PASSWORD: 'pmld'
-      MYSQL_ROOT_PASSWORD: 'pmld'
-    ports:
-      - '3306:3306'
-    volumes:
-      - /var/lib/mysql:/var/lib/mysql
   adminer:
     container_name: adminer
     image: adminer:latest
     network_mode: bridge
     restart: always
     environment:
-      ADMINER_DEFAULT_SERVER: database
+      ADMINER_DEFAULT_SERVER: 10.33.109.105
       ADMINER_DESIGN: hever
     ports: 
       - 8080:8080
-
