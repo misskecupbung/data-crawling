@@ -4,11 +4,6 @@ pipeline {
     harbor=credentials('harbor')
   }
   stages {
-    stage("Checkout SCM"){
-      steps {
-        checkout scm
-      }
-    }
     stage("Build docker image") {
       steps {
         dir('scrapy') {
