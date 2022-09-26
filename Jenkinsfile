@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     harbor=credentials('harbor')
-    IMAGE_TAG=sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+    IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
 
   }
 
