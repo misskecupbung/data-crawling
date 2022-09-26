@@ -42,7 +42,7 @@ pipeline {
       parallel {
         stage("Push Docker Scrapy Image") {
           steps {
-            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy:'
+            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
             sh 'docker push 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
           }
         }
