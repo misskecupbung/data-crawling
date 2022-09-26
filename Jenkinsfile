@@ -4,8 +4,8 @@ pipeline {
     skipDefaultCheckout true
   }
   environment {
-    harbor = credentials('harbor')
-    IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+    harbor=credentials('harbor')
+    IMAGE_TAG=sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
 
   }
 
