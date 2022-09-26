@@ -34,20 +34,20 @@ pipeline {
     }
     stage("Push new data-crawling image") {
       parallel {
-        stage("Build docker scrapy image") {
+        stage("Push docker scrapy image") {
           steps {
             sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
             sh 'docker push 10.33.109.104/data-crawling/scrapy'
           }
         }
-      }
-        stage("Build docker api image") {
+        stage("Push docker api image") {
           steps {
             sh 'docker tag api 10.33.109.104/data-crawling/api'
             sh 'docker push 10.33.109.104/data-crawling/api'
           }
         }
       }
+    }
     stage("Run new containers in data crawling project") {
       steps {
         sh 'docker compose -p data-crawling up -d'
