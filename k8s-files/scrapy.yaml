@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: scrapy
-  replicas: 2
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
