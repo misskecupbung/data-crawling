@@ -33,20 +33,18 @@ pipeline {
       }
     }
     stage("Push new data-crawling image") {
-      steps {
-        parallel {
-          stage("Build docker scrapy image") {
-            steps {
-              sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
-              sh 'docker push 10.33.109.104/data-crawling/scrapy'
-            }
+      parallel {
+        stage("Build docker scrapy image") {
+          steps {
+            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
+            sh 'docker push 10.33.109.104/data-crawling/scrapy'
           }
         }
-          stage("Build docker api image") {
-            steps {
-              sh 'docker tag api 10.33.109.104/data-crawling/api'
-              sh 'docker push 10.33.109.104/data-crawling/api'
-            }
+      }
+        stage("Build docker api image") {
+          steps {
+            sh 'docker tag api 10.33.109.104/data-crawling/api'
+            sh 'docker push 10.33.109.104/data-crawling/api'
           }
         }
       }
