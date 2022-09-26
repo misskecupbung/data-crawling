@@ -46,7 +46,6 @@ pipeline {
           }
         }
       }
-    }
     stage("Run new containers in data crawling project") {
       steps {
         sh 'docker compose -p data-crawling up -d'
