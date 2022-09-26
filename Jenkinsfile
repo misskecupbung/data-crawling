@@ -1,5 +1,8 @@
 pipeline {
-  agent any
+  agent none
+  options {
+    skipDefaultCheckout true
+  }
   environment {
     harbor = credentials('harbor')
     IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
@@ -10,6 +13,7 @@ pipeline {
     stage("Build docker image") {
       parallel {
         stage("Build docker scrapy image") {
+          agent {label 'docker'}
           steps {
             dir('scrapy') {
               sh 'docker build -t scrapy:${IMAGE_TAG} .'
@@ -17,6 +21,7 @@ pipeline {
           }
         }
         stage("Build docker api image") {
+          agent {label 'docker'}
           steps {
             dir('api'){
               sh 'docker build -t api:${IMAGE_TAG} .'
@@ -38,20 +43,23 @@ pipeline {
     stage("Push New data-crawling image") {
       parallel {
         stage("Push Docker Scrapy Image") {
+          agent {label 'docker'}
           steps {
-            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
-            sh 'docker push 10.33.109.104/data-crawling/scrapy'
+            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy:'
+            sh 'docker push 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
           }
         }
         stage("Push Docker Api Image") {
+          agent {label 'docker'}
           steps {
-            sh 'docker tag api 10.33.109.104/data-crawling/api'
-            sh 'docker push 10.33.109.104/data-crawling/api'
+            sh 'docker tag api 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
+            sh 'docker push 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
           }
         }
       }
     }
     stage("Run New Containers in Data Crawling Project") {
+      agent {label 'docker'}
       steps {
         sh 'docker compose -p data-crawling up -d'
       }
@@ -59,8 +67,8 @@ pipeline {
     stage("Deploy in Kubernetes Production"){
       steps {
         dir('k8s-files'){
-          sh 'kubectl apply -f api_tmp.yaml -f scrapy_tmp.yaml -n data-crawling'
-          sh 'kubectl apply -f api.yaml -f scrapy.yaml -n data-crawling'
+          sh 'kubectl set image deployment/api api=api:${IMAGE_TAG} --record'
+          sh 'kubectl set image deployment/scrapy scrapy=scrapy:${IMAGE_TAG} --record'
         }
       }
     }
