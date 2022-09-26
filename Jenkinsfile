@@ -3,20 +3,23 @@ pipeline {
   environment {
     harbor=credentials('harbor')
   }
+  parameters {
+    string(description: 'Image Version Based from Build', name: 'IMAGE_VERSION', defaultValue: '01')
+  }
   stages {
     stage("Build docker image") {
       parallel {
         stage("Build docker scrapy image") {
           steps {
             dir('scrapy') {
-              sh 'docker build -t scrapy .'
+              sh 'docker build -t scrapy:${params.IMAGE_VERSION} .'
             }
           }
         }
         stage("Build docker api image") {
           steps {
             dir('api'){
-              sh 'docker build -t api .'
+              sh 'docker build -t api:${params.IMAGE_VERSION} .'
             }
           }
         }
@@ -36,14 +39,14 @@ pipeline {
       parallel {
         stage("Push Docker Scrapy Image") {
           steps {
-            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
-            sh 'docker push 10.33.109.104/data-crawling/scrapy'
+            sh 'docker tag scrapy:${params.IMAGE_VERSION} 10.33.109.104/data-crawling/scrapy:${params.IMAGE_VERSION}'
+            sh 'docker push:${params.IMAGE_VERSION} 10.33.109.104/data-crawling/scrapy:${params.IMAGE_VERSION}'
           }
         }
         stage("Push Docker Api Image") {
           steps {
-            sh 'docker tag api 10.33.109.104/data-crawling/api'
-            sh 'docker push 10.33.109.104/data-crawling/api'
+            sh 'docker tag api 10.33.109.104/data-crawling/api:${params.IMAGE_VERSION}'
+            sh 'docker push:${params.IMAGE_VERSION} 10.33.109.104/data-crawling/api:${params.IMAGE_VERSION}'
           }
         }
       }
