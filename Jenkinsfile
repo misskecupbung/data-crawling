@@ -31,11 +31,13 @@ pipeline {
       }
     }
     stage("Remove orpans containers") {
+      agent {label 'docker'}
       steps {
         sh 'docker compose down --remove-orphans'
       }
     }
     stage("Login to Harbor Registry") {
+      agent {label 'docker'}
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
       }
