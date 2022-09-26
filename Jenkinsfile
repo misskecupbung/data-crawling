@@ -27,9 +27,13 @@ pipeline {
         sh 'docker compose down --remove-orphans'
       }
     }
-    stage("Push new data-crawling image") {
+    stage("Login to Harbor Registry") {
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
+      }
+    }
+    stage("Push new data-crawling image") {
+      steps {
         parallel {
           stage("Build docker scrapy image") {
             steps {
