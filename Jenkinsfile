@@ -30,10 +30,21 @@ pipeline {
     stage("Push new data-crawling image") {
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
-        sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
-        sh 'docker push 10.33.109.104/data-crawling/scrapy'
-        sh 'docker tag api 10.33.109.104/data-crawling/api'
-        sh 'docker push 10.33.109.104/data-crawling/api'
+        parallel {
+          stage("Build docker scrapy image") {
+            steps {
+              sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy'
+              sh 'docker push 10.33.109.104/data-crawling/scrapy'
+            }
+          }
+        }
+          stage("Build docker api image") {
+            steps {
+              sh 'docker tag api 10.33.109.104/data-crawling/api'
+              sh 'docker push 10.33.109.104/data-crawling/api'
+            }
+          }
+        }
       }
     }
     stage("Run new containers in data crawling project") {
@@ -42,7 +53,6 @@ pipeline {
         sh 'docker ps'
       }
     }
-
   }
   post {
     success {
