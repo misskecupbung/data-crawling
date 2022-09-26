@@ -1,22 +1,25 @@
 pipeline {
   agent any
   environment {
-    harbor=credentials('harbor')
+    harbor = credentials('harbor')
+    IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+
   }
+
   stages {
     stage("Build docker image") {
       parallel {
         stage("Build docker scrapy image") {
           steps {
             dir('scrapy') {
-              sh 'docker build -t scrapy:${env.BUILD_ID} .'
+              sh 'docker build -t scrapy:${IMAGE_TAG} .'
             }
           }
         }
         stage("Build docker api image") {
           steps {
             dir('api'){
-              sh 'docker build -t api:${env.BUILD_ID} .'
+              sh 'docker build -t api:${IMAGE_TAG} .'
             }
           }
         }
