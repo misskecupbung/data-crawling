@@ -9,14 +9,14 @@ pipeline {
         stage("Build docker scrapy image") {
           steps {
             dir('scrapy') {
-              sh 'docker build -t scrapy .'
+              sh 'docker build -t scrapy:${env.BUILD_ID} .'
             }
           }
         }
         stage("Build docker api image") {
           steps {
             dir('api'){
-              sh 'docker build -t api .'
+              sh 'docker build -t api:${env.BUILD_ID} .'
             }
           }
         }
