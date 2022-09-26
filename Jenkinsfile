@@ -5,12 +5,14 @@ pipeline {
   }
   stages {
     stage("Build docker image") {
-      steps {
-        dir('scrapy') {
-          sh 'docker build -t scrapy .'
-        }
-        dir('api') {
-          sh 'docker build -t api .'
+      parallel {
+        steps {
+          dir('scrpy') {
+            sh 'docker build -t scrapy .'
+          }
+          dir('api') {
+            sh 'docker build -t api .'
+          }
         }
       }
     }
