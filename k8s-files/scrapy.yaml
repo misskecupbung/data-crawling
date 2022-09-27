@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: scrapy
-  replicas: 4
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: scrapy
-        image: 10.33.109.104/data-crawling/scrapy:latest
+        image: 10.33.109.104/parallel-apps/scrapy:latest
         resources:
           requests:
             memory: "64Mi"

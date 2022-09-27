@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: pallete
-        image: 10.33.109.104/data-crawling/pallete:latest
+        image: 10.33.109.104/parallel-apps/pallete:latest
         resources:
           requests:
             memory: "32Mi"

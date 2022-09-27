@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: pengedit-md
-        image: 10.33.109.104/data-crawling/pengedit-md:latest
+        image: 10.33.109.104/parallel-apps/pengedit-md:latest
         resources:
           requests:
             memory: "32Mi"

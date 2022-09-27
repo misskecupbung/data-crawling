@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc-api
+  name: svc-pengedit-md
   labels:
-    run: svc-api
+    run: svc-pengedit-md
 spec:
   type: NodePort
   ports:
-  - name: tcp
+  - name: http
     port: 5000
-    nodePort: 30102
+    nodePort: 30104
     protocol: TCP
   selector:
-    name: api
+    name: pengedit-md
