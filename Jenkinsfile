@@ -1,7 +1,7 @@
 pipeline {
   agent {label 'docker'}
   options {
-    skipDefaultCheckout true
+    skipDefaultCheckout false
   }
   environment {
     harbor=credentials('harbor')
