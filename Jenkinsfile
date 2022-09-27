@@ -9,7 +9,6 @@ pipeline {
     IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
 
   }
-
   stages {
     stage("Build docker image") {
       parallel {
@@ -29,7 +28,7 @@ pipeline {
         }
       }
     }
-    stage("Remove orpans containers") {
+    stage("Remove Orpans Containers") {
       steps {
         sh 'docker compose down --remove-orphans'
       }
@@ -55,9 +54,13 @@ pipeline {
         }
       }
     }
-    stage("Run New Containers in Data Crawling Project") {
+    stage("Remove All Local Images") {
       steps {
         sh 'docker rmi -f ${IMAGE_LIST}'
+      }
+    }
+    stage("Run New Containers in Data Crawling Project") {
+      steps {
         sh 'docker compose -p data-crawling up -d'
       }
     }
