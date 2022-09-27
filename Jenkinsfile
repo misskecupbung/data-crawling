@@ -14,14 +14,14 @@ pipeline {
       parallel {
         stage("Build docker scrapy image") {
           steps {
-            dir('scrapy') {
+            dir('data-crawling/scrapy') {
               sh 'docker build -t scrapy:${IMAGE_TAG} .'
             }
           }
         }
         stage("Build docker api image") {
           steps {
-            dir('api'){
+            dir('data-crawling/api'){
               sh 'docker build -t api:${IMAGE_TAG} .'
             }
           }
