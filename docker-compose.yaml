@@ -3,7 +3,7 @@ version: '3'
 services:
   scrapy-crawling:
     container_name: app
-    image: 10.33.109.104/parallel-apps/app:latest
+    image: 10.33.109.104/parallel-apps/scrapy:latest
     network_mode: bridge
     restart: always
     ports:
