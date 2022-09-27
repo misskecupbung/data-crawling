@@ -5,6 +5,7 @@ pipeline {
   }
   environment {
     harbor=credentials('harbor')
+    IMAGE_LIST = sh('docker images -aq')
     IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
 
   }
@@ -56,7 +57,7 @@ pipeline {
     }
     stage("Run New Containers in Data Crawling Project") {
       steps {
-        sh 'docker rmi -f $(docker images -aq)'
+        sh 'docker rmi -f ${IMAGE_LIST}'
         sh 'docker compose -p data-crawling up -d'
       }
     }
