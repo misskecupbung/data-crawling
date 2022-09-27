@@ -3,28 +3,28 @@ version: '3'
 services:
   scrapy-crawling:
     container_name: app
-    image: 10.33.109.104/data-crawling/app:latest
+    image: 10.33.109.104/parallel-apps/app:latest
     network_mode: bridge
     restart: always
     ports:
       - "8081:6800"
   api-crawling:
     container_name: api
-    image: 10.33.109.104/data-crawling/api:latest
+    image: 10.33.109.104/parallel-apps/api:latest
     network_mode: bridge
     restart: always
     ports:
       - "8082:5000"
   pallete:
     container_name: pallete
-    image: 10.33.109.104/data-crawling/pallete:latest
+    image: 10.33.109.104/parallel-apps/pallete:latest
     network_mode: bridge
     restart: always
     ports:
       - "8083:3000"
   pengedit-md:
     container_name: pengedit-md
-    image: 10.33.109.104/data-crawling/pengedit-md:latest
+    image: 10.33.109.104/parallel-apps/pengedit-md:latest
     network_mode: bridge
     restart: always
     ports:
