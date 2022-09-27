@@ -87,7 +87,7 @@ pipeline {
     }
     stage("Run New Containers in Data Crawling Project") {
       steps {
-        sh 'sed "s/latest/${IMAGE_TAG}/g" docker-compose.yaml'
+        sh 'sed -i "s/latest/${IMAGE_TAG}/g" docker-compose.yaml'
         sh 'docker compose -p parallel-apps up -d'
       }
     }
