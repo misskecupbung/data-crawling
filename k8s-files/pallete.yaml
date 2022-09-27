@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pallete
+  labels:
+    app: pallete
+spec:
+  selector:
+    matchLabels:
+      app: pallete
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: pallete
+    spec:
+      containers:
+      - name: pallete
+        image: 10.33.109.104/data-crawling/pallete:latest
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "64m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000

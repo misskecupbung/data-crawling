@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pengedit-md
+  labels:
+    app: pengedit-md
+spec:
+  selector:
+    matchLabels:
+      app: pengedit-md
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: pengedit-md
+    spec:
+      containers:
+      - name: pengedit-md
+        image: 10.33.109.104/data-crawling/pengedit-md:latest
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "64m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
