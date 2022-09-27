@@ -62,8 +62,8 @@ pipeline {
     stage("Deploy in Kubernetes Production"){
       steps {
         dir('k8s-files'){
-          sh 'kubectl set image deployment/api api=api:${IMAGE_TAG} -n data-crawling --record'
-          sh 'kubectl set image deployment/scrapy scrapy=scrapy:${IMAGE_TAG} -n data-crawling --record'
+          sh 'kubectl set image deployment/api 10.33.109.104/data-crawling/api:${IMAGE_TAG} -n data-crawling --record'
+          sh 'kubectl set image deployment/scrapy api 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG} -n data-crawling --record'
         }
       }
     }
