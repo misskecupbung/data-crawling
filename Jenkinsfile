@@ -103,7 +103,6 @@ pipeline {
         }
       }
     }
-  }
   post {
     success {
       sh 'docker ps'
