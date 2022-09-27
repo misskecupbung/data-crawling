@@ -33,7 +33,6 @@ pipeline {
             }
           }
         }
-      }
         stage("Build Docker pengedit-md Image") {
           steps {
             dir('pengedit-md'){
@@ -43,16 +42,17 @@ pipeline {
         }
       }
     }
+  }
     stage("Remove Orpans Containers") {
       steps {
         sh 'docker compose down --remove-orphans'
       }
-    }
+  }
     stage("Login to Harbor Registry") {
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
       }
-    }
+  }
     stage("Push New Images") {
       parallel {
         stage("Push Docker scrapy Image") {
@@ -80,18 +80,18 @@ pipeline {
           }
         }
       }
-    }
+  }
     stage("Remove All Local Images") {
       steps {
         sh 'docker rmi -f ${IMAGE_LIST}'
       }
-    }
+  }
     stage("Run New Containers in Data Crawling Project") {
       steps {
         sh 'sed "s/latest/${IMAGE_TAG}/g" docker-compose.yaml'
         sh 'docker compose -p parallel-apps up -d'
       }
-    }
+  }
     stage("Deploy in Kubernetes Production"){
       steps {
         dir('k8s-files'){
