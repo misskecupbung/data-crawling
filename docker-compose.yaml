@@ -15,13 +15,3 @@ services:
     restart: always
     ports:
       - "5000:5000"
-  adminer:
-    container_name: adminer
-    image: adminer:latest
-    network_mode: bridge
-    restart: always
-    environment:
-      ADMINER_DEFAULT_SERVER: 10.33.109.105
-      ADMINER_DESIGN: hever
-    ports: 
-      - 8080:8080
