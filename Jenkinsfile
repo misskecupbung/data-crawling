@@ -42,13 +42,13 @@ pipeline {
       parallel {
         stage("Push Docker Scrapy Image") {
           steps {
-            sh 'docker tag scrapy 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
+            sh 'docker tag scrapy:${IMAGE_TAG} 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
             sh 'docker push 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
           }
         }
         stage("Push Docker Api Image") {
           steps {
-            sh 'docker tag api 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
+            sh 'docker tag api:${IMAGE_TAG} 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
             sh 'docker push 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
           }
         }
