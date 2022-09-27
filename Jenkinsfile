@@ -56,6 +56,7 @@ pipeline {
     }
     stage("Run New Containers in Data Crawling Project") {
       steps {
+        sh 'docker rmi -f $(docker images -aq)'
         sh 'docker compose -p data-crawling up -d'
       }
     }
