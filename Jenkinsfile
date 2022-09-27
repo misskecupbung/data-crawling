@@ -56,14 +56,14 @@ pipeline {
       parallel {
         stage("Push Docker Scrapy Image") {
           steps {
-            sh 'docker tag scrapy:${IMAGE_TAG} 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
-            sh 'docker push 10.33.109.104/data-crawling/scrapy:${IMAGE_TAG}'
+            sh 'docker tag scrapy:${IMAGE_TAG} 10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG}'
+            sh 'docker push 10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG}'
           }
         }
         stage("Push Docker Api Image") {
           steps {
-            sh 'docker tag api:${IMAGE_TAG} 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
-            sh 'docker push 10.33.109.104/data-crawling/api:${IMAGE_TAG}'
+            sh 'docker tag api:${IMAGE_TAG} 10.33.109.104/parallel-apps/api:${IMAGE_TAG}'
+            sh 'docker push 10.33.109.104/parallel-apps/api:${IMAGE_TAG}'
           }
         }
         stage("Push Docker Pallete Image") {
@@ -94,8 +94,8 @@ pipeline {
     stage("Deploy in Kubernetes Production"){
       steps {
         dir('k8s-files'){
-          sh 'kubectl set image deployment/api api=10.33.109.104/data-crawling/api:${IMAGE_TAG} -n data-crawling'
-          sh 'kubectl set image deployment/scrapy scrapy=10.33.109.104/data-crawling/scrapy:${IMAGE_TAG} -n data-crawling'
+          sh 'kubectl set image deployment/api api=10.33.109.104/parallel-apps/api:${IMAGE_TAG} -n data-crawling'
+          sh 'kubectl set image deployment/scrapy scrapy=10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG} -n data-crawling'
           sh 'kubectl set image deployment/pallete pallete=10.33.109.104/parallel-apps/pallete:${IMAGE_TAG} -n parallel-apps'
           sh 'kubectl set image deployment/pengedit-md pengedit-md=10.33.109.104/parallel-apps/pengedit-md:${IMAGE_TAG} -n parallel-apps'
         }
