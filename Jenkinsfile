@@ -77,7 +77,7 @@ pipeline {
     stage("Remove All Local Images") {
       steps {
         sh 'docker rmi -f ${IMAGE_LIST}'
-        sh 'docker rmi -f (docker images -aq)'
+        sh 'docker rmi -f $(docker images -aq)'
       }
     }
     stage("Run New Containers in Data Crawling Project") {
