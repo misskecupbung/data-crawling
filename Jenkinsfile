@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     harbor=credentials('harbor')
-    IMAGE_LIST = sh("docker images -aq")
+    IMAGE_LIST = sh(returnStdout: true, script: "docker images -aq")
     IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
   }
   stages {
@@ -77,7 +77,7 @@ pipeline {
     stage("Remove All Local Images") {
       steps {
         sh 'docker compose down --remove-orphans'
-        sh 'docker rmi -f $(docker images -aq)'
+        sh 'docker rmi -f ${IMAGE_LIST}'
       }
     }
     stage("Run New Containers in Data Crawling Project") {
