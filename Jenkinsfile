@@ -41,11 +41,6 @@ pipeline {
         }
       }
     }
-    stage("Remove Orpans Containers") {
-      steps {
-        sh 'docker compose down --remove-orphans'
-      }
-    }
     stage("Login to Harbor Registry") {
       steps {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
@@ -82,10 +77,12 @@ pipeline {
     stage("Remove All Local Images") {
       steps {
         sh 'docker rmi -f ${IMAGE_LIST}'
+        sh 'docker rmi -f (docker images -aq)'
       }
     }
     stage("Run New Containers in Data Crawling Project") {
       steps {
+        sh 'docker compose down --remove-orphans'
         sh 'sed -i "s/latest/${IMAGE_TAG}/g" docker-compose.yaml'
         sh 'docker compose -p parallel-apps up -d'
       }
