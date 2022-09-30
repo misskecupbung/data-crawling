@@ -8,35 +8,33 @@ pipeline {
     IMAGE_TAG = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
   }
   stages {
-    stage("Build docker image") {
-        stage("Build docker scrapy image") {
-          steps {
-            dir('data-crawling/scrapy') {
-              sh 'docker build -t 10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG} .'
-            }
-          }
+    stage("Build docker scrapy image") {
+      steps {
+        dir('data-crawling/scrapy'){
+          sh 'docker build -t 10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG} .'
         }
-        stage("Build docker api image") {
-          steps {
-            dir('data-crawling/api'){
-              sh 'docker build -t 10.33.109.104/parallel-apps/api:${IMAGE_TAG} .'
-            }
-          }
+      }
+    }
+    stage("Build docker api image") {
+      steps {
+        dir('data-crawling/scrapy'){
+          sh 'docker build -t 10.33.109.104/parallel-apps/api:${IMAGE_TAG} .'
         }
-        stage("Build Docker Pallete image") {
-          steps {
-            dir('pallete'){
-              sh 'docker build -t 10.33.109.104/parallel-apps/pallete:${IMAGE_TAG} .'
-            }
-          }
+      }
+    }
+    stage("Build Docker Pallete image") {
+      steps {
+        dir('pallete'){
+          sh 'docker build -t 10.33.109.104/parallel-apps/pallete:${IMAGE_TAG} .'
         }
-        stage("Build Docker pengedit-md Image") {
-          steps {
-            dir('pengedit-md'){
-              sh 'docker build -t 10.33.109.104/parallel-apps/pengedit-md:${IMAGE_TAG} .'
-            }
-          }
+      }
+    }
+    stage("Build Docker pengedit-md Image") {
+      steps {
+        dir('pengedit-md'){
+          sh 'docker build -t 10.33.109.104/parallel-apps/pengedit-md:${IMAGE_TAG} .'
         }
+      }
     }
     stage("Remove Orpans Containers") {
       steps {
@@ -48,27 +46,25 @@ pipeline {
         sh 'echo $harbor_PSW | docker login 10.33.109.104 -u $harbor_USR --password-stdin'
       }
     }
-    stage("Push New data-crawling image") {
-        stage("Push Docker Scrapy Image") {
-          steps {
-            sh 'docker push 10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG}'
-          }
-        }
-        stage("Push Docker Api Image") {
-          steps {
-            sh 'docker push 10.33.109.104/parallel-apps/api:${IMAGE_TAG}'
-          }
-        }
-        stage("Push Docker Pallete Image") {
-          steps {
-            sh 'docker push 10.33.109.104/parallel-apps/pallete:${IMAGE_TAG}'
-          }
-        }
-        stage("Push Docker pengedit-md Image") {
-          steps {
-            sh 'docker push 10.33.109.104/parallel-apps/pengedit-md:${IMAGE_TAG}'
-          }
-        }
+    stage("Push Docker Scrapy Image") {
+      steps {
+        sh 'docker push 10.33.109.104/parallel-apps/scrapy:${IMAGE_TAG}'
+      }
+    }
+    stage("Push Docker Api Image") {
+      steps {
+        sh 'docker push 10.33.109.104/parallel-apps/api:${IMAGE_TAG}'
+      }
+    }
+    stage("Push Docker Pallete Image") {
+      steps {
+        sh 'docker push 10.33.109.104/parallel-apps/pallete:${IMAGE_TAG}'
+      }
+    }
+    stage("Push Docker pengedit-md Image") {
+      steps {
+        sh 'docker push 10.33.109.104/parallel-apps/pengedit-md:${IMAGE_TAG}'
+      }
     }
 
     stage("Run New Containers in Data Crawling Project") {
