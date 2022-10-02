@@ -42,7 +42,7 @@ pipeline {
     }
     stage("Remove Orpans Containers") {
       steps {
-        sh 'docker compose down --remove-orphans'
+        sh 'docker compose -p parallel-apps down --remove-orphans'
       }
     }
     stage("Login to Harbor Registry") {
